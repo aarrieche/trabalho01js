@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    
+    <title>Formulários</title>
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="my-4">Trabalho 01 Design de Interação | Formulários | Parte 2</h1>
+    
+
+    <div id="fase1" class="form-group">
+      <label for="nome">Nome:</label>
+      <span id="erro-nome" style="display:none; color:red;">Preencha o campo Nome.</span>
+      <input type="text" class="form-control" id="nome" required>
+
+      <label for="cpf">CPF:</label>
+      <span id="erro-cpf" style="display:none; color:red;">Insira um CPF válido.</span>
+      <input type="text" class="form-control" id="cpf" required minlength="11" maxlength="11">
+
+      <label for="senha">Senha:</label>
+      <span id="erro-senha" style="display:none; color:red;">Insira uma senha com pelo menos 8 caracteres.</span>
+      <input type="password" class="form-control" id="senha" required minlength="8">
+
+      <label for="confirma-senha">Confirmar senha:</label>
+      <span id="erro-confirmaSenha" style="display:none; color:red;">As senhas não coincidem</span>
+      <input type="password" class="form-control" id="confirma-senha" required minlength="8">
+      
+      <button id="enviar-fase1" class="btn btn-warning" >Enviar</button>
+    </div>
+
+     <div id="fase2" class="form-group" style="display: none;">
+      <label for="profissao">Profissão:</label>
+      <span id="erro-profissao" style="display:none; color:red;">Preencha sua profissão.</span>
+      <input type="text" class="form-control" id="profissao" required>
+
+      <label>Estado onde trabalha:</label>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="rs" name="estado" value="RS" required>
+        <label class="form-check-label" for="rs">RS</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="sc" name="estado" value="SC">
+        <label class="form-check-label" for="sc">SC</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" class="form-check-input" id="pr" name="estado" value="PR">
+        <label class="form-check-label" for="pr">PR</label>
+        <span id="erro-estado" style="display:none; color:red;">Selecione um estado.</span>
+      </div>
+
+      <label for="experiencia">Anos de experiência:</label>
+      <span id="erro-experiencia" style="display:none; color:red;">Preencha sua experiência corretamente.</span>
+      <input type="number" class="form-control" id="experiencia" required min="0" max="50">
+      
+      <button id="enviar-fase2" class="btn btn-warning">Enviar</button>
+  
+    </div>
+
+    <div id="fase3" style="display: none;">
+      <h2>Confirme os dados:</h2>
+      <p><strong>Nome:</strong> <span id="nome-confirmado"></span></p>
+      <p><strong>CPF:</strong> <span id="cpf-confirmado"></span></p>
+      <p><strong>Profissão:</strong> <span id="profissao-confirmada"></span></p>
+      <p><strong>Estado onde trabalha:</strong> <span id="estado-confirmado"></span></p>
+      <p><strong>Anos de experiência:</strong> <span id="experiencia-confirmada"></span></p>
+      <button id="enviar-fase3" class="btn btn-warning">Confirmar</button>
+    </div>
+
+    <div id="final" style="display: none; text-align: center;">
+      <h2>Obrigado por enviar seus dados!</h2>
+    </div>
+
+    </div>   
+      
+
+      <script>
+
+        document.getElementById("enviar-fase1").addEventListener("click", function() {
+        var nome = document.getElementById("nome").value;
+        var cpf = document.getElementById("cpf").value;
+        var senha = document.getElementById("senha").value;
+        var confirmaSenha = document.getElementById("confirma-senha").value;
+        var correto = true;
+        
+
+        if (nome === '') {
+          document.getElementById('erro-nome').style.display = 'block';
+          document.getElementById("nome").style.borderColor = "red";
+          correto = false;
+        } else {
+          document.getElementById('erro-nome').style.display = 'none';
+          document.getElementById("nome").style.borderColor = "";
+        }
+
+        if (cpf === '' || cpf.length < 11 ) {
+          document.getElementById('erro-cpf').style.display = 'block';
+          document.getElementById("cpf").style.borderColor = "red";
+          correto = false;
+          
+        } else {
+          document.getElementById('erro-cpf').style.display = 'none';
+          document.getElementById("cpf").style.borderColor = "";
+        }
+
+        if (senha === '' || senha.length < 8 ) {
+          document.getElementById('erro-senha').style.display = 'block';
+          document.getElementById("senha").style.borderColor = "red";
+          correto = false;
+
+        } else {
+          document.getElementById('erro-senha').style.display = 'none';
+          document.getElementById("senha").style.borderColor = "";
+        }
+
+        if (confirmaSenha === '' || confirmaSenha != senha ) {
+          document.getElementById('erro-confirmaSenha').style.display = 'block';
+          document.getElementById("confirma-senha").style.borderColor = "red";
+          correto = false;
+          
+        } else {
+          document.getElementById('erro-confirmaSenha').style.display = 'none';
+          document.getElementById("confirma-senha").style.borderColor = "";
+        }
+
+        if(correto){
+        document.getElementById("fase1").style.display = "none";
+        document.getElementById("fase2").style.display = "block";
+      }
+
+        });
+
+
+        document.getElementById("enviar-fase2").addEventListener("click", function() {
+        var profissao = document.getElementById("profissao").value;
+        var estado = document.querySelector('input[name="estado"]:checked');
+        var experiencia = document.getElementById("experiencia").value;
+        var correto = true;
+
+        if (profissao === "") {
+          document.getElementById("erro-profissao").style.display = "block";
+          document.getElementById("profissao").style.borderColor = "red";
+          correto = false;
+        } else {
+          document.getElementById('erro-profissao').style.display = 'none';
+          document.getElementById("profissao").style.borderColor = "";
+        }
+
+        if (!estado) {
+          document.getElementById("erro-estado").style.display = "block";
+          correto = false;
+        } else {
+          document.getElementById('erro-estado').style.display = 'none';
+        }
+
+        if (experiencia === "" || experiencia < 0 || experiencia > 50) {
+          document.getElementById("erro-experiencia").style.display = "block";
+          document.getElementById("experiencia").style.borderColor = "red";
+          correto = false;
+        } else {
+          document.getElementById('erro-experiencia').style.display = 'none';
+          document.getElementById("experiencia").style.borderColor = "";
+        }
+
+
+
+        if(correto){
+
+        document.getElementById("fase1").style.display = "none";
+        document.getElementById("fase2").style.display = "none";
+        
+      
+
+        document.getElementById("fase3").style.display = "block";
+        document.getElementById("nome-confirmado").innerHTML = document.getElementById("nome").value;
+        document.getElementById("cpf-confirmado").innerHTML = document.getElementById("cpf").value;
+        document.getElementById("profissao-confirmada").innerHTML = document.getElementById("profissao").value;
+        document.getElementById("estado-confirmado").innerHTML = document.querySelector('input[name="estado"]:checked').value;
+        document.getElementById("experiencia-confirmada").innerHTML = document.getElementById("experiencia").value;
+
+      }
+
+      });
+
+      document.getElementById("enviar-fase3").addEventListener("click", function() {
+
+        document.getElementById("fase3").style.display = "none";
+        document.getElementById("final").style.display = "block";
+
+
+
+      });
+
+      </script>
+      
+</body>
+</html>
